@@ -9,240 +9,82 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        .workshop-hero {
-            margin-top: 64px;
-            background: linear-gradient(135deg, #ea4335, #fbbc04);
-            padding: 48px 24px;
-            text-align: center;
-            color: #fff;
-        }
+        .workshop-hero { margin-top: 64px; background: linear-gradient(135deg, #11277a, #4285f4); padding: 56px 24px; text-align: center; color: #fff; }
+        .workshop-hero h1 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .workshop-hero p { font-size: 1.05rem; opacity: 0.92; max-width: 720px; margin: 0 auto; }
 
-        .workshop-hero h1 {
-            font-family: var(--font-display);
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-display); font-size: 0.875rem; font-weight: 500; color: var(--color-blue); margin-bottom: 32px; transition: color 0.2s; }
+        .back-link:hover { color: #3367d6; text-decoration: underline; }
 
-        .workshop-hero p {
-            font-size: 1rem;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+        .workshop-schedule { max-width: 1200px; margin: 0 auto; padding: 56px 24px 72px; }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: var(--font-display);
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--color-blue);
-            margin-bottom: 32px;
-            transition: color 0.2s;
-        }
+        .region-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+        .region-tab { font-family: var(--font-display); font-size: 0.95rem; font-weight: 500; padding: 11px 22px; background: var(--color-light-gray); border: 1px solid var(--color-border); border-radius: 24px; color: var(--color-gray); cursor: pointer; transition: all 0.2s; }
+        .region-tab:hover { color: var(--color-blue); border-color: var(--color-blue); }
+        .region-tab.active { color: #fff; background: var(--color-blue); border-color: var(--color-blue); }
 
-        .back-link:hover {
-            color: #3367d6;
-            text-decoration: underline;
-        }
+        .region-content { display: none; animation: fadeIn 0.3s ease; }
+        .region-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        .workshop-schedule {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
+        .region-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-dark); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+        .region-badge { font-size: 0.7rem; font-weight: 500; padding: 4px 12px; border-radius: 12px; color: #fff; letter-spacing: 0.4px; }
+        .badge-north { background: var(--color-blue); }
+        .badge-south { background: var(--color-green); }
+        .badge-west  { background: #e65100; }
 
-        /* Region Tabs */
-        .region-tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--color-border);
-        }
+        /* Grid of day cards */
+        .planner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; align-items: stretch; }
 
-        .region-tab {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 14px 28px;
-            background: none;
-            border: none;
-            color: var(--color-gray);
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-            transition: color 0.2s, border-color 0.2s;
+        .planner-card {
+            --ac: #4285f4; --ac-soft: rgba(66, 133, 244, 0.1);
+            background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden;
+            display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        .planner-card:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1); }
 
-        .region-tab:hover {
-            color: var(--color-blue);
-        }
+        .card-blue   { --ac: #4285f4; --ac-soft: rgba(66, 133, 244, 0.1); }
+        .card-purple { --ac: #7b2ff7; --ac-soft: rgba(123, 47, 247, 0.1); }
+        .card-green  { --ac: #34a853; --ac-soft: rgba(52, 168, 83, 0.1); }
+        .card-orange { --ac: #e65100; --ac-soft: rgba(230, 81, 0, 0.1); }
 
-        .region-tab.active {
-            color: var(--color-blue);
-            border-bottom-color: var(--color-blue);
-        }
+        .pc-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: var(--ac); }
+        .pc-cal { width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); display: grid; place-items: center; color: #fff; flex-shrink: 0; }
+        .pc-date { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .pc-date sup { font-size: 0.6em; }
 
-        /* Region Content */
-        .region-content {
-            display: none;
-        }
+        .pc-time { display: inline-flex; align-items: center; gap: 8px; margin: 18px 20px 0; padding: 8px 14px; background: var(--ac-soft); border-radius: 10px; font-family: var(--font-display); font-weight: 500; color: var(--ac); font-size: 0.9rem; width: max-content; }
 
-        .region-content.active {
-            display: block;
-        }
+        .pc-body { padding: 18px 20px 22px; flex: 1; }
+        .pc-subhead { font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-gray); margin-bottom: 14px; }
+        .pc-section + .pc-section { margin-top: 4px; }
+        .pc-section-head { display: flex; align-items: center; gap: 12px; }
+        .pc-ic { width: 40px; height: 40px; border-radius: 50%; background: var(--ac-soft); display: grid; place-items: center; color: var(--ac); flex-shrink: 0; }
+        .pc-label { display: block; font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--ac); margin-bottom: 3px; }
+        .pc-place { font-family: var(--font-display); font-size: 1rem; color: var(--color-dark); font-weight: 700; line-height: 1.3; }
+        .pc-place small { display: block; font-size: 0.72rem; font-weight: 400; color: var(--color-gray); margin-top: 2px; }
+        .pc-divider { border: none; border-top: 1px solid var(--color-border); margin: 16px 0; }
+        .pc-list { list-style: none; margin: 0; padding-left: 52px; }
+        .pc-list li { position: relative; padding: 5px 0 5px 16px; font-size: 0.9rem; color: var(--color-gray); }
+        .pc-list li::before { content: ''; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--ac); }
 
-        .region-title {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-dark);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .icon { width: 20px; height: 20px; }
 
-        .region-title .region-badge {
-            font-size: 0.75rem;
-            font-weight: 500;
-            padding: 4px 12px;
-            border-radius: 12px;
-            color: #fff;
-        }
-
-        .badge-north {
-            background: var(--color-blue);
-        }
-
-        .badge-south {
-            background: var(--color-green);
-        }
-
-        .badge-west {
-            background: #e65100;
-        }
-
-        /* Workshop Day Card */
-        .workshop-day {
-            border: 1px solid var(--color-border);
-            border-radius: 10px;
-            margin-bottom: 16px;
-            overflow: hidden;
-            transition: box-shadow 0.2s;
-        }
-
-        .workshop-day:hover {
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .workshop-day-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px 24px;
-            background: var(--color-light-gray);
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .workshop-day-date {
-            min-width: 60px;
-            text-align: center;
-        }
-
-        .workshop-day-date .day-num {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-blue);
-        }
-
-        .workshop-day-date .day-label {
-            font-size: 0.7rem;
-            color: var(--color-gray);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .workshop-day-header h3 {
-            font-family: var(--font-display);
-            font-size: 1.0625rem;
-            font-weight: 500;
-            color: var(--color-dark);
-        }
-
-        .workshop-day-locations {
-            padding: 16px 24px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .location-chip {
-            display: inline-block;
-            font-size: 0.8125rem;
-            font-weight: 400;
-            padding: 6px 14px;
-            background: rgba(66, 133, 244, 0.06);
-            border: 1px solid rgba(66, 133, 244, 0.15);
-            border-radius: 20px;
-            color: var(--color-dark);
-            transition: background 0.2s;
-        }
-
-        .location-chip:hover {
-            background: rgba(66, 133, 244, 0.12);
-        }
-
-        .location-chip.highlight {
-            background: rgba(0, 150, 136, 0.12);
-            border: 1px solid rgba(0, 150, 136, 0.4);
-            color: #00695c;
-            font-weight: 500;
-        }
-
-        .location-chip.highlight:hover {
-            background: rgba(0, 150, 136, 0.2);
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .workshop-hero h1 {
-                font-size: 1.75rem;
-            }
-
-            .region-tabs {
-                flex-direction: column;
-                border-bottom: none;
-                gap: 4px;
-            }
-
-            .region-tab {
-                border-bottom: none;
-                border-left: 3px solid transparent;
-                text-align: left;
-                padding: 12px 20px;
-            }
-
-            .region-tab.active {
-                border-left-color: var(--color-blue);
-                border-bottom-color: transparent;
-                background: var(--color-light-gray);
-                border-radius: 0 6px 6px 0;
-            }
-
-            .workshop-day-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
+            .workshop-hero h1 { font-size: 1.9rem; }
+            .planner-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+    <svg style="display:none" aria-hidden="true">
+        <symbol id="ic-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+        <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="ic-plant" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l6 4V10l6 4V6h6v15z"/><line x1="2" y1="21" x2="22" y2="21"/></symbol>
+        <symbol id="ic-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
+    </svg>
+
     <header class="navbar">
         <div class="navbar-container">
             <div class="navbar-brand">
@@ -261,223 +103,335 @@
         </div>
     </header>
 
-    <!-- Workshop Hero -->
     <div class="workshop-hero">
-        <h1>AI Workshop Planner</h1>
-        <p>7th – 20th July 2026 | Sessions from Industry Experts on AI across SQPCDDME</p>
+        <h1>Weekly Planner</h1>
+        <p>AI Workshops Across Plants &nbsp;|&nbsp; 8th &ndash; 20th July 2026 &nbsp;|&nbsp; Sessions from Industry Experts on AI across SQPCDDME</p>
+        <br>
+        <a href="#" class="btn-community" id="teams-link">Join Now →</a>
+       
     </div>
 
-    <!-- Workshop Schedule -->
     <div class="workshop-schedule">
-        <a href="index.html#events" class="back-link">← Back to Events</a>
+        <a href="index.html#events" class="back-link">&larr; Back to Events</a>
 
-        <!-- Region Tabs -->
         <div class="region-tabs">
             <button class="region-tab active" data-region="north">Region - North (Delhi-NCR)</button>
             <button class="region-tab" data-region="south">Region - South</button>
             <button class="region-tab" data-region="west">Region - West</button>
         </div>
 
-        <!-- Region North -->
         <div class="region-content active" id="region-north">
             <h2 class="region-title">
                 Region - North (Delhi-NCR)
                 <span class="region-badge badge-north">North</span>
             </h2>
 
-            <!-- 7th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">7</div>
-                        <div class="day-label">July</div>
+            <div class="planner-grid">
+                <article class="planner-card card-purple" data-date="2026-07-08">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">8<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 3:00 PM to 5:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">UML Lighting Manesar</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>MTP UML Fuel Cap, Manesar</li>
+                                <li>MWTL</li>
+                                <li>2W Lighting, Sonipat</li>
+                                <li>UML Lighting, Bahadurgarh</li>
+                                <li>MITIL Polymers</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>UML - Manesar Switch + Corporate</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">UML - Manesar Switch</span>
-                    <span class="location-chip highlight">Corporate</span>
-                </div>
-            </div>
+                </article>
 
-            <!-- 8th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">8</div>
-                        <div class="day-label">July</div>
+                <article class="planner-card card-green" data-date="2026-07-09">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">9<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 3:00 PM to 5:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">MRPL - Manesar</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>MRPL Farukhnagar</li>
+                                <li>EV Farukhnagar</li>
+                                <li>Switch Pantnagar</li>
+                                <li>Battery Pantnagar</li>
+                                <li>Seating Pantnagar</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>UML - Lighting Manesar + Multi-location</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">UML - Lighting Manesar</span>
-                    <span class="location-chip">MTP</span>
-                    <span class="location-chip">UML Fuel Cap Mnsr</span>
-                    <span class="location-chip">MWTL</span>
-                    <span class="location-chip">Rinder Sonipat</span>
-                    <span class="location-chip">Khed</span>
-                    <span class="location-chip">MITIL Polymers</span>
-                </div>
-            </div>
+                </article>
 
-            <!-- 9th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">9</div>
-                        <div class="day-label">July</div>
+                <article class="planner-card card-blue" data-date="2026-07-10">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">10<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 3:00 PM to 5:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">Denso Ten - Bawal</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>Minda Onkyo Pvt. Ltd</li>
+                                <li>MKL - Bawal</li>
+                                <li>UML AW4W - Bawal</li>
+                                <li>UML - Acoustic Div (DTA)</li>
+                                <li>UML - Casting Bawal</li>
+                                <li>UML Seating - Bhiwadi</li>
+                                <li>UML - Sunroof</li>
+                                <li>TG Minda</li>
+                                <li>ROKI Minda</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>MRPL - Manesar + EV Farukhnagar + Pantnagar</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">MRPL - Manesar</span>
-                    <span class="location-chip">MRPL Farukhnagar</span>
-                    <span class="location-chip">EV Farukhnagar</span>
-                    <span class="location-chip">Pantnagar</span>
-                </div>
-            </div>
-
-            <!-- 10th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">10</div>
-                        <div class="day-label">July</div>
-                    </div>
-                    <h3>Bawal + Bhiwadi Cluster</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">Denso Ten Bawal</span>
-                    <span class="location-chip">Minda Onkyo Pvt. Ltd</span>
-                    <span class="location-chip">MKL - Bawal</span>
-                    <span class="location-chip">UMAW4W - Bawal / KMM</span>
-                    <span class="location-chip">UML - Acoustic Div (DTA)</span>
-                    <span class="location-chip">UML - Casting Bawal</span>
-                    <span class="location-chip">UML Seating - Bhiwadi</span>
-                    <span class="location-chip">UML - Sunroof</span>
-                </div>
+                </article>
             </div>
         </div>
 
-        <!-- Region South -->
         <div class="region-content" id="region-south">
             <h2 class="region-title">
                 Region - South
                 <span class="region-badge badge-south">South</span>
             </h2>
 
-            <!-- 13th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">13</div>
-                        <div class="day-label">July</div>
+            <div class="planner-grid">
+                <article class="planner-card card-blue" data-date="2026-07-13">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">13<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 11:00 AM to 1:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">Seating - Hosur (Unit-1)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>Switch Hosur</li>
+                                <li>MKL - Bangalore</li>
+                                <li>UML - Casting Hosur</li>
+                                <li>UML - Switch Hosur</li>
+                                <li>UML - Rinder Hosur</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>Hosur + Bangalore Cluster</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">Seating Hosur</span>
-                    <span class="location-chip">MKL Bangalore</span>
-                    <span class="location-chip">Switch Hosur</span>
-                    <span class="location-chip">MKL - Bangalore</span>
-                    <span class="location-chip">UML - Casting Hosur</span>
-                    <span class="location-chip">UML - Switch Hosur</span>
-                    <span class="location-chip">UML Seating Hosur</span>
-                    <span class="location-chip">UML - Rinder Hosur</span>
-                </div>
-            </div>
+                </article>
 
-            <!-- 14th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">14</div>
-                        <div class="day-label">July</div>
+                <article class="planner-card card-purple" data-date="2026-07-14">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">14<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 3:00 PM to 5:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">MRPL Chennai</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>UML - 4W Lighting Chennai</li>
+                                <li>UML Seating Chennai</li>
+                                <li>UML Seating - Mysuru</li>
+                                <li>AW4W Chennai</li>
+                                <li>Switch Chennai</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>Chennai + Mysuru Cluster</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">MRPL - Chennai</span>
-                    <span class="location-chip">UML - Lighting Chennai</span>
-                    <span class="location-chip">UML Seating Chennai</span>
-                    <span class="location-chip">UML Seating - Mysuru</span>
-                </div>
-            </div>
+                </article>
 
-            <!-- 16th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">16</div>
-                        <div class="day-label">July</div>
+                <article class="planner-card card-green" data-date="2026-07-16">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">16<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 3:00 PM to 5:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">CREAT Pune</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>CREAT - Gurgaon</li>
+                                <li>CREAT Chennai</li>
+                                <li>GCEST - Bengaluru</li>
+                                <li>ATG - Bengaluru</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>CREAT - Multi Location</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">CREAT Pune</span>
-                    <span class="location-chip">CREAT - Gurgaon</span>
-                    <span class="location-chip">CREAT Chennai</span>
-                    <span class="location-chip">GCESTAT</span>
-                    <span class="location-chip">GKWT</span>
-                    <span class="location-chip">UML - Chennai CREAT</span>
-                </div>
-            </div>
+                </article>
 
-            <!-- 17th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">17</div>
-                        <div class="day-label">July</div>
+                <article class="planner-card card-orange" data-date="2026-07-17">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">17<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 3:00 PM to 5:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">Switch Pune</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>UMRPL - Chakan Pune</li>
+                                <li>UML - Alloy Wheel Ahmednagar</li>
+                                <li>UML - Controller Division</li>
+                                <li>UMKESPL - Pune</li>
+                                <li>UML - Lighting Pune</li>
+                                <li>UML - Sensor Division Pune</li>
+                                <li>AW2W - Supa</li>
+                                <li>UML Seating Pune</li>
+                                <li>UML - Rinder Pune</li>
+                                <li>4W Lighting - Khed</li>
+                                <li>4W EV - Khed</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>Pune Cluster</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">Switch Pune</span>
-                    <span class="location-chip">MKPL - Minda Katolec</span>
-                    <span class="location-chip">MRPL - Chakan Pune</span>
-                    <span class="location-chip">UML - Alloy Wheel Ahmednagar</span>
-                    <span class="location-chip">UML - Controller Division</span>
-                    <span class="location-chip">UML - Lighting Pune</span>
-                    <span class="location-chip">UML - Sensor Division Pune</span>
-                    <span class="location-chip">UML - Switch Pune</span>
-                    <span class="location-chip">UML Seating Pune</span>
-                    <span class="location-chip">UML - Rinder Pune</span>
-                </div>
+                </article>
             </div>
         </div>
 
-        <!-- Region West -->
         <div class="region-content" id="region-west">
             <h2 class="region-title">
                 Region - West
                 <span class="region-badge badge-west">West</span>
             </h2>
 
-            <!-- 20th July -->
-            <div class="workshop-day">
-                <div class="workshop-day-header">
-                    <div class="workshop-day-date">
-                        <div class="day-num">20</div>
-                        <div class="day-label">July</div>
+            <div class="planner-grid">
+                <article class="planner-card card-orange" data-date="2026-07-20">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">20<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 11:00 AM to 1:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">AW4W Gujarat</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Plants Joining Online</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>TACHI S</li>
+                                <li>MKL - Gujarat</li>
+                                <li>MRPL - Gujarat</li>
+                                <li>Roki Minda - Gujarat</li>
+                                <li>TG Minda Gujarat</li>
+                                <li>UML - Lighting Gujarat</li>
+                                <li>UML - Wheel Assembly</li>
+                                <li>UML - HBA</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3>Gujarat Cluster</h3>
-                </div>
-                <div class="workshop-day-locations">
-                    <span class="location-chip highlight">AW4W Gujarat</span>
-                    <span class="location-chip">MKAW - Gujarat</span>
-                    <span class="location-chip">MKL - Gujarat</span>
-                    <span class="location-chip">MRPL - Gujarat</span>
-                    <span class="location-chip">Roki Minda - Gujarat</span>
-                    <span class="location-chip">TG Minda Gujarat</span>
-                    <span class="location-chip">UML - Lighting Gujarat</span>
-                    <span class="location-chip">UML - Wheel Assembly</span>
-                </div>
+                </article>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
@@ -488,22 +442,14 @@
     </footer>
 
     <script>
-        // Region tab switching
         const tabs = document.querySelectorAll('.region-tab');
         const contents = document.querySelectorAll('.region-content');
+        function activateRegion(region) {
+            tabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-region') === region));
+            contents.forEach(c => c.classList.toggle('active', c.id === 'region-' + region));
+        }
+        tabs.forEach(tab => tab.addEventListener('click', () => activateRegion(tab.getAttribute('data-region'))));
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                contents.forEach(c => c.classList.remove('active'));
-
-                tab.classList.add('active');
-                const region = tab.getAttribute('data-region');
-                document.getElementById('region-' + region).classList.add('active');
-            });
-        });
-
-        // Mobile menu
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navbarLinks = document.querySelector('.navbar-links');
         if (mobileMenuBtn) {

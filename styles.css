@@ -187,7 +187,7 @@ a {
 .hero-image {
     width: 100%;
     max-width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     transition: opacity 1.5s ease;
     opacity: 0;
@@ -668,7 +668,7 @@ a {
 
     .hero-image {
         width: 100%;
-        height: auto;
+        height: 100%;
     }
 
     .footer-container {
