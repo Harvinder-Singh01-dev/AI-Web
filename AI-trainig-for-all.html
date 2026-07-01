@@ -74,6 +74,51 @@
         @media (max-width: 768px) {
             .hero-text h1 { font-size: 1.9rem; }
         }
+
+        /* ===== Session Curriculum ===== */
+        .curriculum { background: #ffffff; padding: 64px 24px 76px; }
+        .curr-inner { max-width: 1100px; margin: 0 auto; }
+        .curr-head { text-align: center; max-width: 660px; margin: 0 auto 38px; }
+        .curr-head h2 { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--color-dark); margin: 8px 0 12px; letter-spacing: -0.4px; }
+        .curr-head p { font-size: 1.02rem; line-height: 1.7; color: var(--color-gray); }
+
+        .curr-tabs > input { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+        .tab-labels { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+        .tab-label {
+            display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer;
+            font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--color-dark);
+            background: #fff; border: 2px solid var(--color-border); border-radius: 14px;
+            padding: 14px 28px; min-width: 250px; text-align: center; transition: border-color 0.2s, background 0.2s, color 0.2s;
+        }
+        .tab-label small { font-size: 0.78rem; font-weight: 500; color: var(--color-gray); transition: color 0.2s; }
+        .tab-label:hover { border-color: #c7d2e8; }
+        #track-all:checked ~ .tab-labels label[for="track-all"] { border-color: #4285f4; background: #eef4ff; color: #1a56db; }
+        #track-all:checked ~ .tab-labels label[for="track-all"] small { color: #4285f4; }
+        #track-it:checked  ~ .tab-labels label[for="track-it"]  { border-color: #34a853; background: #ebf7ee; color: #1e7e40; }
+        #track-it:checked  ~ .tab-labels label[for="track-it"]  small { color: #34a853; }
+
+        .tab-panel { display: none; }
+        #track-all:checked ~ .tab-panels .panel-all { display: block; }
+        #track-it:checked  ~ .tab-panels .panel-it  { display: block; }
+
+        .mod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .mod-card { background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 24px 24px 20px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); }
+        .mod-card.mod-wide { grid-column: 1 / -1; }
+        .mod-top { display: flex; align-items: center; gap: 14px; margin-bottom: 15px; }
+        .mod-num { width: 38px; height: 38px; flex-shrink: 0; border-radius: 10px; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: #fff; background: var(--ac); }
+        .mod-top h3 { flex: 1; font-family: var(--font-display); font-size: 1.08rem; font-weight: 700; line-height: 1.3; color: var(--color-dark); margin: 0; }
+        .mod-time { flex-shrink: 0; font-family: var(--font-display); font-size: 0.76rem; font-weight: 700; color: var(--ac); background: var(--ac-bg); padding: 5px 11px; border-radius: 20px; white-space: nowrap; }
+        .mod-card ul { margin: 0; padding-left: 20px; }
+        .mod-card li { font-size: 0.95rem; line-height: 1.6; color: var(--color-gray); margin-bottom: 7px; }
+        .mod-card li:last-child { margin-bottom: 0; }
+        .panel-all .mod-card { --ac: #4285f4; --ac-bg: #eef4ff; }
+        .panel-it  .mod-card { --ac: #34a853; --ac-bg: #ebf7ee; }
+
+        @media (max-width: 760px) {
+            .mod-grid { grid-template-columns: 1fr; }
+            .tab-label { min-width: 0; flex: 1; padding: 12px 16px; }
+            .curr-head h2 { font-size: 1.55rem; }
+        }
     </style>
 </head>
 <body>
@@ -107,7 +152,7 @@
             <div class="hero-text">
                 <h1>AI Training for All</h1>
                 <p>Foundational AI training open to everyone &mdash; learn the basics of artificial intelligence and its real-world applications.</p>
-                <a href="#" class="btn-community" id="teams-link">Join Now &rarr;</a>
+                <a href="#" class="btn-community" id="teams-link">Join the Session &rarr;</a>
             </div>
             <div class="hero-img">
                 <img src="Speaker.png" alt="Session Speaker">
@@ -118,62 +163,136 @@
     <div class="blog-wrap">
         <a href="index.html#events" class="back-link">&larr; Back to Events</a>
 
-        <div class="blog-layout">
-            <article class="blog-body">
+            
+
+            
+            <section >
                 <div class="blog-meta">6th July 2026 &nbsp;|&nbsp; Training</div>
-                <h2>Why AI Training for Everyone?</h2>
-                <p>Artificial intelligence is no longer a specialist subject reserved for data scientists and engineers. It is reshaping how every function works &mdash; from the shop floor to the boardroom. As part of AI Awareness Month, this session opens the door for <strong>everyone</strong> to understand what AI really is, how it works, and where it already touches our daily work.</p>
-                <p>No prior technical background is required. Whether you are an operator, an executive, or a support-function team member, you will leave with a clear, practical understanding of AI and the confidence to start applying it.</p>
-
-                <h2>What You Will Learn</h2>
-                <ul>
-                    <li>The fundamentals of artificial intelligence and machine learning, explained in plain language.</li>
-                    <li>Real-world examples of AI across Safety, Quality, Productivity, Cost, Delivery, Digital, Morale &amp; Environment (SQPCDDME).</li>
-                    <li>How everyday tools &mdash; chat assistants, automation, and analytics &mdash; can save time and reduce effort.</li>
-                    <li>Practical first steps to bring AI into your own role and team.</li>
-                </ul>
-
-                <h2>Who Should Attend</h2>
-                <p>Two dedicated sessions run on the same day so everyone can join the one that fits best:</p>
-                <ul>
-                    <li><strong>AI Training for All</strong> &mdash; open to all employees who want a strong foundation in AI (morning session).</li>
-                    <li><strong>AI for Group-IT &amp; Corporate</strong> &mdash; a focused virtual meet for IT and corporate teams (afternoon session).</li>
-                </ul>
-
-                <h2>How to Join</h2>
-                <p>Sessions will be held live with industry experts. Use the <strong>Join Now</strong> link to register and add the session to your calendar. The virtual meeting link for the Group-IT &amp; Corporate session is available in the schedule card alongside.</p>
-            </article>
-
-            <aside>
-            <div class="sched-card">
-                <header class="sched-head">
-                    <span class="sched-cal"><svg class="icon" style="width:26px;height:26px"><use href="#ic-cal"/></svg></span>
-                    <span class="sched-date">6<sup>th</sup> July</span>
-                </header>
-                <div class="sched-body">
-                    <div class="sched-item item-blue">
-                        <span class="sched-ic"><svg class="icon"><use href="#ic-grad"/></svg></span>
-                        <div class="sched-text">
-                            <h3>AI Training<br>for All</h3>
-                            <span class="sched-time"><svg class="icon"><use href="#ic-clock"/></svg> 11:00 AM to 1:00 PM</span>
-                        </div>
+                <div class="curr-inner">
+                    <div class="curr-head">
+                        <h2>What each session covers</h2>
+                        <p>Two focused two-hour tracks, each built around five hands-on modules &mdash; from the fundamentals of Generative AI to real workflow gains and responsible, secure use. Pick a session below to see its full agenda.</p>
                     </div>
-
-                    <hr class="sched-divider">
-
-                    <div class="sched-item item-green">
-                        <span class="sched-ic"><svg class="icon"><use href="#ic-corp"/></svg></span>
-                        <div class="sched-text">
-                            <h3>AI for<br>Group-IT &amp;<br>Corporate <small>(Virtual Meet)</small></h3>
-                            <span class="sched-time"><svg class="icon"><use href="#ic-clock"/></svg> 3:00 PM to 5:00 PM</span>
+        
+                    <div class="curr-tabs">
+                        <input type="radio" name="track" id="track-all" checked>
+                        <input type="radio" name="track" id="track-it">
+        
+                        <div class="tab-labels">
+                            <label for="track-all" class="tab-label"> <span class="sched-ic"><svg class="icon"><use href="#ic-grad"></use></svg></span> AI Training for All<small>Applied AI for Corporate Productivity &middot; 11 AM&ndash;1 PM</small></label>
+                            <label for="track-it" class="tab-label"><span class="sched-ic"><svg class="icon"><use href="#ic-corp"></use></svg></span> AI for Group-IT &amp; Corporate<small>Productivity &amp; Cybersecurity &middot; 3&ndash;5 PM</small></label>
+                        </div>
+        
+                        <div class="tab-panels">
+                            <!-- Track 1: Corporate Productivity -->
+                            <div class="tab-panel panel-all">
+                                <div class="mod-grid">
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">1</span><h3>Fundamentals of Generative AI</h3><span class="mod-time">20 min</span></div>
+                                        <ul>
+                                            <li>Understanding the core architecture of Large Language Models</li>
+                                            <li>Core capabilities and limitations of AI generation</li>
+                                            <li>Generative processing versus traditional search retrieval</li>
+                                            <li>Transitioning to a delegation-based AI workflow</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">2</span><h3>Principles of Effective Prompt Engineering</h3><span class="mod-time">25 min</span></div>
+                                        <ul>
+                                            <li>Foundational prompting strategies for corporate users</li>
+                                            <li>Applying the Context, Role, Task, Format, Tone framework</li>
+                                            <li><strong>Live demo:</strong> optimizing low-yield prompts into actionable instructions</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">3</span><h3>Workflow: Communications &amp; Documentation</h3><span class="mod-time">30 min</span></div>
+                                        <ul>
+                                            <li>Accelerating document review and drafting processes</li>
+                                            <li>Extracting critical action items from extensive correspondence and reports</li>
+                                            <li>Refining text tone for professional corporate communications</li>
+                                            <li>Generating foundational drafts for SOPs and updates</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">4</span><h3>Workflow: Data Management &amp; Analysis</h3><span class="mod-time">30 min</span></div>
+                                        <ul>
+                                            <li>Advanced spreadsheet utilization for non-technical users</li>
+                                            <li>Translating natural language requests into complex spreadsheet formulas</li>
+                                            <li>Structuring and standardizing raw, unformatted datasets</li>
+                                            <li>Deconstructing and interpreting legacy spreadsheet logic</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card mod-wide">
+                                        <div class="mod-top"><span class="mod-num">5</span><h3>Data Governance &amp; Risk Management</h3><span class="mod-time">15 min</span></div>
+                                        <ul>
+                                            <li>Protocols for protecting proprietary corporate assets</li>
+                                            <li>Identifying strictly confidential data types (financials, PII, internal specifications)</li>
+                                            <li>Techniques for data anonymization prior to AI processing</li>
+                                            <li>Mitigating AI hallucinations through mandatory human verification</li>
+                                            <li><strong>Interactive Q&amp;A</strong></li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+        
+                            <!-- Track 2: Group IT -->
+                            <div class="tab-panel panel-it">
+                                <div class="mod-grid">
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">1</span><h3>Fundamentals of Generative AI</h3><span class="mod-time">20 min</span></div>
+                                        <ul>
+                                            <li>Understanding the core architecture of Large Language Models</li>
+                                            <li>Core capabilities and limitations of AI generation</li>
+                                            <li>Generative processing versus traditional search retrieval</li>
+                                            <li>Transitioning to a delegation-based AI workflow</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">2</span><h3>Principles of Effective Prompt Engineering</h3><span class="mod-time">25 min</span></div>
+                                        <ul>
+                                            <li>Foundational prompting strategies for corporate users</li>
+                                            <li>Applying the Context, Role, Task, Format, Tone framework</li>
+                                            <li><strong>Live demo:</strong> optimizing low-yield prompts into actionable instructions</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">3</span><h3>Workflow: Communications &amp; Documentation</h3><span class="mod-time">25 min</span></div>
+                                        <ul>
+                                            <li>Accelerating document review and drafting processes</li>
+                                            <li>Extracting critical action items from correspondence and incident reports</li>
+                                            <li>Refining text tone for professional cross-departmental communications</li>
+                                            <li>Generating foundational drafts for technical documentation and SOPs</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card">
+                                        <div class="mod-top"><span class="mod-num">4</span><h3>Workflow: Data Management &amp; Analysis</h3><span class="mod-time">25 min</span></div>
+                                        <ul>
+                                            <li>Advanced spreadsheet utilization and data parsing</li>
+                                            <li>Translating natural language into complex formulas and basic automation scripts</li>
+                                            <li>Structuring raw datasets (e.g. system logs, asset lists)</li>
+                                            <li>Deconstructing and interpreting legacy spreadsheet logic</li>
+                                        </ul>
+                                    </article>
+                                    <article class="mod-card mod-wide">
+                                        <div class="mod-top"><span class="mod-num">5</span><h3>AI Cybersecurity &amp; Risk Management</h3><span class="mod-time">25 min</span></div>
+                                        <ul>
+                                            <li>Cybersecurity risks of Generative AI (accidental data exposure, Shadow IT)</li>
+                                            <li>Protocols for protecting proprietary corporate assets and network data</li>
+                                            <li>Identifying confidential data types (PII, credentials, internal network architecture)</li>
+                                            <li>Evaluating secure enterprise AI solutions versus public consumer tools</li>
+                                            <li>Mitigating AI hallucinations through mandatory human verification</li>
+                                            <li><strong>Interactive Q&amp;A</strong></li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <a href="#" class="sched-join" id="teams-link-2">Join the Session &rarr;</a>
-            </div>
-            </aside>
-        </div>
+            </section>
     </div>
+
+   
 
     <footer class="footer">
         <div class="footer-container">
