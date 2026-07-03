@@ -51,6 +51,7 @@
         .card-purple { --ac: #7b2ff7; --ac-soft: rgba(123, 47, 247, 0.1); }
         .card-green  { --ac: #34a853; --ac-soft: rgba(52, 168, 83, 0.1); }
         .card-orange { --ac: #e65100; --ac-soft: rgba(230, 81, 0, 0.1); }
+        .card-teal   { --ac: #008aa7; --ac-soft: rgba(0, 138, 167, 0.1); }
 
         .pc-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: var(--ac); }
         .pc-cal { width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); display: grid; place-items: center; color: #fff; flex-shrink: 0; }
@@ -58,6 +59,7 @@
         .pc-date sup { font-size: 0.6em; }
 
         .pc-time { display: inline-flex; align-items: center; gap: 8px; margin: 18px 20px 0; padding: 8px 14px; background: var(--ac-soft); border-radius: 10px; font-family: var(--font-display); font-weight: 500; color: var(--ac); font-size: 0.9rem; width: max-content; }
+        .pc-body .pc-time { display: flex; margin: 0 0 16px; }
 
         .pc-body { padding: 18px 20px 22px; flex: 1; }
         .pc-subhead { font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--color-gray); margin-bottom: 14px; }
@@ -175,8 +177,8 @@
                         <div class="pc-subhead">Session Details</div>
                         <div class="pc-section">
                             <div class="pc-section-head">
-                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
-                                <div><span class="pc-label">Physical @ Plant</span></div>
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
                             </div>
                             <ul class="pc-list">
                                 <li>PTMA Indonesia</li>
@@ -185,6 +187,8 @@
                             </ul>
                         </div>
                         <hr class="pc-divider">
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 03:00 PM to 5:00 PM</span>
+
                         <div class="pc-section">
                             <div class="pc-section-head">
                                 <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
@@ -230,6 +234,40 @@
                                 <li>UML - Sunroof</li>
                                 <li>TG Minda</li>
                                 <li>ROKI Minda</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+                <article class="planner-card card-teal" data-date="2026-07-28">
+                    <header class="pc-head">
+                        <span class="pc-cal"><svg class="icon"><use href="#ic-cal"/></svg></span>
+                        <span class="pc-date">28<sup>th</sup> July</span>
+                    </header>
+                    <span class="pc-time"><svg class="icon" style="width:16px;height:16px"><use href="#ic-clock"/></svg> 11:00 AM to 1:00 PM</span>
+                    <div class="pc-body">
+                        <div class="pc-subhead">Session Details</div>
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-plant"/></svg></span>
+                                <div>
+                                    <span class="pc-label">Physical @ Plant</span>
+                                    <span class="pc-place">MRPL &ndash; Manesar</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="pc-divider">
+                        <div class="pc-section">
+                            <div class="pc-section-head">
+                                <span class="pc-ic"><svg class="icon"><use href="#ic-video"/></svg></span>
+                                <div><span class="pc-label">Virtual Meeting</span></div>
+                            </div>
+                            <ul class="pc-list">
+                                <li>2W Switch Manesar</li>
+                                <li>MRPL Frknagar</li>
+                                <li>EV Frknagar</li>
+                                <li>Switch Pantnagar</li>
+                                <li>Battery Pantnagar</li>
+                                <li>Seating Pantnagar</li>
                             </ul>
                         </div>
                     </div>
