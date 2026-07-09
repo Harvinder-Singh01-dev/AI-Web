@@ -10,6 +10,7 @@ if (mobileMenuBtn) {
     });
 }
 
+/*
 // Landing Video to Image transition with fade
 const landingVideo = document.getElementById('landing-video');
 const landingImage = document.getElementById('landing-image');
@@ -19,6 +20,26 @@ if (landingVideo && landingImage) {
         landingVideo.classList.add('fade-out');
         landingImage.classList.add('fade-in');
     });
+}
+*/
+// ==========================================
+// HERO IMAGE SLIDESHOW LOGIC
+// ==========================================
+const slides = document.querySelectorAll('.hero-slide');
+let currentSlide = 0;
+
+if (slides.length > 0) {
+    // Har 4 second (4000ms) mein image change hogi
+    setInterval(() => {
+        // Current image se 'active' class hatao
+        slides[currentSlide].classList.remove('active');
+        
+        // Next image par jao (agar last image hai toh wapas 0 par aa jao)
+        currentSlide = (currentSlide + 1) % slides.length;
+        
+        // Nayi image par 'active' class lagao
+        slides[currentSlide].classList.add('active');
+    }, 5000); // Agar fast/slow karna ho toh is number ko change karein
 }
 
 // Active nav link on scroll

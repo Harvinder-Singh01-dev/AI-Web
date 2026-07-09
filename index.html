@@ -31,9 +31,35 @@
             </button>
         </div>
     </header>
+<style>
+    /* Hero Image Slideshow Styles */
+    .hero-slideshow {
+        position: relative;
+        width: 100%;
+        height: 100vh; /* Agar aapki height kuch aur thi, toh wo yahan daal dein */
+        overflow: hidden;
+        background-color: #000;
+    }
 
+    .hero-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* object-fit: contain;  */
+        opacity: 0;
+        transition: opacity 1.2s ease-in-out;
+        z-index: 1;
+    }
+
+    .hero-slide.active {
+        opacity: 1;
+        z-index: 2;
+    }
+</style>
     <!-- Hero Section - Landing Video then Image -->
-    <section class="hero hero-stacked">
+    <!-- <section class="hero hero-stacked">
         <video id="landing-video" class="hero-video" autoplay muted playsinline>
             <source src="Landing_Video.mp4" type="video/mp4">
         </video>
@@ -52,6 +78,12 @@
             })();
         </script>
         <img src="Landing_Page.png" alt="AI Awareness Month" class="hero-image" id="landing-image">
+    </section> -->
+
+    <section id="home" class="hero hero-slideshow">
+        <img src="Landing_Page.png" alt="AI Awareness Month 1" class="hero-slide active">
+        <img src="FirstAIWorkshop.png" alt="AI Awareness Month 2" class="hero-slide">
+        <img src="SecAIWorkshop.jpeg" alt="AI Awareness Month 3" class="hero-slide"> 
     </section>
     <!-- Kickoff Section -->
     <section id="kickoff" class="kickoff-section">
