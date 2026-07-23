@@ -38,7 +38,7 @@
         width: 100%;
         height: 100vh; /* Agar aapki height kuch aur thi, toh wo yahan daal dein */
         overflow: hidden;
-        background-color: #000;
+        background-color: #fff;
     }
 
     .hero-slide {
@@ -47,10 +47,38 @@
         left: 0;
         width: 100%;
         height: 100%;
-        /* object-fit: contain;  */
         opacity: 0;
         transition: opacity 1.2s ease-in-out;
         z-index: 1;
+        /* blurred fill of the same image sits behind the sharp one */
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* soft blurred backdrop so different-sized images have no empty bars */
+    .hero-slide::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: inherit;
+        background-size: cover;
+        background-position: center;
+        filter: blur(28px) brightness(0.85);
+        transform: scale(1.12);
+    }
+
+    /* sharp, fully-visible image on top */
+    .hero-slide img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        z-index: 1;
+    }
+
+    /* full-bleed slide: image fills edge-to-edge (no blurred bars) */
+    .hero-slide.cover img {
+        object-fit: cover;
     }
 
     .hero-slide.active {
@@ -81,10 +109,33 @@
     </section> -->
 
     <section id="home" class="hero hero-slideshow">
-        <img src="Landing_Page.png" alt="AI Awareness Month 1" class="hero-slide active">
-        <img src="FirstAIWorkshop.jpeg" alt="AI Awareness 1st Event" class="hero-slide">
-        <img src="SecAIWorkshop.jpeg" alt="AI Awareness 2nd Event" class="hero-slide"> 
-        <img src="ThirdAIWorkshop.jpeg" alt="AI Awareness 3rd Event" class="hero-slide"> 
+        <div class="hero-slide cover active" style="background-image: url('Landing_Page.png')">
+            <img src="Landing_Page.png" alt="AI Awareness Month 1">
+        </div>
+        <div class="hero-slide" style="background-image: url('FirstAIWorkshop.jpeg')">
+            <img src="FirstAIWorkshop.jpeg" alt="AI Awareness 1st Event">
+        </div>
+        <div class="hero-slide" style="background-image: url('SecAIWorkshop.jpeg')">
+            <img src="SecAIWorkshop.jpeg" alt="AI Awareness 2nd Event">
+        </div>
+        <div class="hero-slide" style="background-image: url('ThirdAIWorkshop.jpeg')">
+            <img src="ThirdAIWorkshop.jpeg" alt="AI Awareness 3rd Event">
+        </div>
+        <div class="hero-slide" style="background-image: url('FourthAIWorkshop.jpeg')">
+            <img src="FourthAIWorkshop.jpeg" alt="AI Awareness 4th Event">
+        </div>
+        <div class="hero-slide" style="background-image: url('FifthAIWorkshop.jpeg')">
+            <img src="FifthAIWorkshop.jpeg" alt="AI Awareness 5th Event">
+        </div>
+        <div class="hero-slide" style="background-image: url('SixthAIWorkshop.jpeg')">
+            <img src="SixthAIWorkshop.jpeg" alt="AI Awareness 6th Event">
+        </div>
+        <div class="hero-slide" style="background-image: url('SeventhAIWorkshop.jpeg')">
+            <img src="SeventhAIWorkshop.jpeg" alt="AI Awareness 7th Event">
+        </div>
+        <div class="hero-slide" style="background-image: url('EighthAIWorkshop.jpeg')">
+            <img src="EighthAIWorkshop.jpeg" alt="AI Awareness 8th Event">
+        </div>
     </section>
     <!-- Kickoff Section -->
     <section id="kickoff" class="kickoff-section">
@@ -172,7 +223,10 @@
                     <div class="event-details">
                         <h3>Online AI Symposium</h3>
                         <p>Vendors present their latest AI products and solutions — discover cutting-edge tools transforming industries.</p>
-                        <span class="event-tag">Symposium</span>
+                        <div class="event-foot">
+                            <a href="https://teams.microsoft.com/meet/419518196342394?p=l7MHpTRtsw969HRqNj" class="event-link" target="_blank" rel="noopener">Join Meeting →</a>
+                            <span class="event-tag">Symposium</span>
+                        </div>
                     </div>
                 </article>
 
@@ -187,7 +241,10 @@
                     <div class="event-details">
                         <h3>Tech Day</h3>
                         <p>Listen to AI Trends and the Future from Global Leads and CEOs shaping the next decade of technology.</p>
-                        <span class="event-tag">Conference</span>
+                        <div class="event-foot">
+                            <a href="https://teams.microsoft.com/meet/4120457086873?p=c1JcrCCOfxEQ5XGyXF" class="event-link" target="_blank" rel="noopener">Join Meeting →</a>
+                            <span class="event-tag">Conference</span>
+                        </div>
                     </div>
                 </article>
 

@@ -513,6 +513,7 @@
         const linkJuly10 = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmZhZmMyZjItZGZkYi00ODZmLWIxNmQtM2U2NmQ4ZWM4Mjdk%40thread.v2/0?context=%7b%22Tid%22%3a%2217bf7467-a77b-4bf2-8e51-a857cb18f125%22%2c%22Oid%22%3a%22a64ddc20-1fd0-4829-8ff4-70317ff4f7ca%22%7d";
         const linkJuly13 = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmY5NjY4NWItNGRmZi00ZDU2LTk3OWItYWE3YTM0NzAzYzNi%40thread.v2/0?context=%7b%22Tid%22%3a%2217bf7467-a77b-4bf2-8e51-a857cb18f125%22%2c%22Oid%22%3a%22a64ddc20-1fd0-4829-8ff4-70317ff4f7ca%22%7d";
         const linkJuly14 = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YWRkMDU2NjgtYWQ4YS00Mjc2LTg1NDItMmQzZDJiNjFkYzUx%40thread.v2/0?context=%7b%22Tid%22%3a%2217bf7467-a77b-4bf2-8e51-a857cb18f125%22%2c%22Oid%22%3a%22a64ddc20-1fd0-4829-8ff4-70317ff4f7ca%22%7d";
+        const linkJuly28 = "https://teams.microsoft.com/meet/48207405911808?p=AGIc1PaNTyKBCavSvr";
 
         // Aaj ki date nikalne ka logic
         const today = new Date();
@@ -528,6 +529,8 @@
                 teamsBtn.href = linkJuly13;
             } else if (currentDate === 14) {
                 teamsBtn.href = linkJuly14;
+            } else if (currentDate === 28) {
+                teamsBtn.href = linkJuly28;
             } else {
                 // Agar koi aur date hai to default link hi rahega
                 teamsBtn.href = defaultLink;
